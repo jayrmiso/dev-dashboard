@@ -1,11 +1,8 @@
-import { AppSidebar } from '@/components/app-sidebar'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import { ThemeToggle } from '@/components/theme-toggle'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { SiteHeader } from '@/components/site-header'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,26 +31,13 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <SidebarProvider
-              style={
-                {
-                  '--sidebar-width': 'calc(var(--spacing) * 72)',
-                  '--header-height': 'calc(var(--spacing) * 12)'
-                } as React.CSSProperties
-              }
-            >
-              <AppSidebar variant="inset" />
-              <SidebarInset>
-                <SiteHeader />
-                {children}
-              </SidebarInset>
-            </SidebarProvider>
-          </TooltipProvider>
+          <div className="fixed top-3 right-4 z-50 rounded-lg bg-background border shadow-md p-1">
+            <ThemeToggle />
+          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
